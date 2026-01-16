@@ -1,17 +1,16 @@
 from unittest import mock
 
 from aprsd import conf  # noqa: F401
-from aprsd.plugins import location as location_plugin
 from oslo_config import cfg
 
-from . import fake, test_plugin
+from aprsd_location_plugin import aprsd_location_plugin as location_plugin
 
+from . import fake, test_plugin
 
 CONF = cfg.CONF
 
 
 class TestLocationPlugin(test_plugin.TestPlugin):
-
     def test_location_not_enabled_missing_aprs_fi_key(self):
         # When the aprs.fi api key isn't set, then
         # the LocationPlugin will be disabled.
@@ -98,6 +97,7 @@ class TestLocationPlugin(test_plugin.TestPlugin):
                     "country": "United States",
                 },
             }
+
         mock_geocode.return_value = TempLocation()
         mock_time.return_value = 10
         CONF.callsign = fake.FAKE_TO_CALLSIGN

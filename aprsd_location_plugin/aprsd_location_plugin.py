@@ -5,13 +5,21 @@ import time
 from aprsd import packets, plugin, plugin_utils
 from aprsd.utils import trace
 from geopy.geocoders import (
-    ArcGIS, AzureMaps, Baidu, Bing, GoogleV3, HereV7, Nominatim, OpenCage,
-    TomTom, What3WordsV3, Woosmap,
+    ArcGIS,
+    AzureMaps,
+    Baidu,
+    Bing,
+    GoogleV3,
+    HereV7,
+    Nominatim,
+    OpenCage,
+    TomTom,
+    What3WordsV3,
+    Woosmap,
 )
 from oslo_config import cfg
 
 from aprsd_location_plugin import conf  # noqa
-
 
 CONF = cfg.CONF
 LOG = logging.getLogger("APRSD")
@@ -33,6 +41,7 @@ class USGov:
     This is a dummy class the implements the geopy reverse API,
     so the factory can return an object that conforms to the API.
     """
+
     def reverse(self, coordinates):
         """Reverse geocode a coordinate."""
         LOG.info(f"USGov reverse geocode {coordinates}")
@@ -74,24 +83,38 @@ def geopy_factory():
             subscription_key=CONF.aprsd_location_plugin.azuremaps_subscription_key,
         )
     elif geocoder == "Baidu":
-        return Baidu(user_agent=user_agent, api_key=CONF.aprsd_location_plugin.baidu_api_key)
+        return Baidu(
+            user_agent=user_agent, api_key=CONF.aprsd_location_plugin.baidu_api_key
+        )
     elif geocoder == "Bing":
-        return Bing(user_agent=user_agent, api_key=CONF.aprsd_location_plugin.bing_api_key)
+        return Bing(
+            user_agent=user_agent, api_key=CONF.aprsd_location_plugin.bing_api_key
+        )
     elif geocoder == "GoogleV3":
-        return GoogleV3(user_agent=user_agent, api_key=CONF.aprsd_location_plugin.google_api_key)
+        return GoogleV3(
+            user_agent=user_agent, api_key=CONF.aprsd_location_plugin.google_api_key
+        )
     elif geocoder == "HERE":
-        return HereV7(user_agent=user_agent, api_key=CONF.aprsd_location_plugin.here_api_key)
+        return HereV7(
+            user_agent=user_agent, api_key=CONF.aprsd_location_plugin.here_api_key
+        )
     elif geocoder == "OpenCage":
-        return OpenCage(user_agent=user_agent, api_key=CONF.aprsd_location_plugin.opencage_api_key)
+        return OpenCage(
+            user_agent=user_agent, api_key=CONF.aprsd_location_plugin.opencage_api_key
+        )
     elif geocoder == "TomTom":
-        return TomTom(user_agent=user_agent, api_key=CONF.aprsd_location_plugin.tomtom_api_key)
+        return TomTom(
+            user_agent=user_agent, api_key=CONF.aprsd_location_plugin.tomtom_api_key
+        )
     elif geocoder == "What3Words":
         return What3WordsV3(
             user_agent=user_agent,
             api_key=CONF.aprsd_location_plugin.what3words_api_key,
         )
     elif geocoder == "Woosmap":
-        return Woosmap(user_agent=user_agent, api_key=CONF.aprsd_location_plugin.woosmap_api_key)
+        return Woosmap(
+            user_agent=user_agent, api_key=CONF.aprsd_location_plugin.woosmap_api_key
+        )
     else:
         raise ValueError(f"Unknown geocoder: {geocoder}")
 

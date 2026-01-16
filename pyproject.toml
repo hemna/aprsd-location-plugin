@@ -18,9 +18,9 @@ description = "APRSD Plugin for fetching location via geopy API"
 # 'Programming Language' classifiers in this file, 'pip install' will check this
 # and refuse to install the project if the version does not match. See
 # https://packaging.python.org/guides/distributing-packages-using-setuptools/#python-requires
-requires-python = ">=3.8"
+requires-python = ">=3.11"
 
-dynamic = ["version", "dependencies", "optional-dependencies"]
+dynamic = ["version"]
 
 # This is an optional longer description of your project that represents
 # the body of text which users will see when they visit PyPI.
@@ -94,9 +94,11 @@ classifiers = [
 #
 # For an analysis of this field vs pip's requirements files see:
 # https://packaging.python.org/discussions/install-requires-vs-requirements/
-[tool.setuptools.dynamic]
-dependencies = {file = ["./requirements.txt"]}
-optional-dependencies.dev = {file = ["./requirements-dev.txt"]}
+dependencies = [
+    "aprsd>=4.2.0",
+    "geopy",
+    "oslo_config",
+]
 
 # List additional groups of dependencies here (e.g. development
 # dependencies). Users will be able to install these using the "extras"
@@ -107,7 +109,21 @@ optional-dependencies.dev = {file = ["./requirements-dev.txt"]}
 # Optional dependencies the project provides. These are commonly
 # referred to as "extras". For a more extensive definition see:
 # https://packaging.python.org/en/latest/specifications/dependency-specifiers/#extras
-# [project.optional-dependencies]
+[project.optional-dependencies]
+dev = [
+    "pip",
+    "pip-tools",
+    "bump2version",
+    "wheel",
+    "watchdog",
+    "flake8",
+    "tox",
+    "coverage",
+    "Sphinx",
+    "twine",
+    "pytest==6.2.5",
+    "gray",
+]
 
 # List URLs that are relevant to your project
 #
@@ -126,6 +142,9 @@ optional-dependencies.dev = {file = ["./requirements-dev.txt"]}
 
 [project.entry-points."oslo.config.opts"]
     "aprsd_location_plugin.conf" = "aprsd_location_plugin.conf.opts:list_opts"
+
+[project.entry-points."aprsd.plugins"]
+    "location" = "aprsd_location_plugin.aprsd_location_plugin:LocationPlugin"
 
 # If you are using a different build backend, you will need to change this.
 [tool.setuptools]
