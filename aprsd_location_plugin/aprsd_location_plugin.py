@@ -125,12 +125,18 @@ class LocationPlugin(plugin.APRSDRegexCommandPluginBase, plugin.APRSFIKEYMixin):
     command_regex = r"^([l]|[l]\s|location)"
     command_name = "location"
     short_description = "Where in the world is a CALLSIGN's last GPS beacon?"
+    enabled = False
 
     def setup(self):
         self.ensure_aprs_fi_key()
+        self.enabled = CONF.aprsd_location_plugin.enabled
 
     @trace.trace
     def process(self, packet: packets.MessagePacket):
+        if not self.enabled:
+            LOG.info("Location Plugin is not enabled")
+            return
+
         LOG.info("Location Plugin")
         fromcall = packet.from_call
         message = packet.get("message_text", None)

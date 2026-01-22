@@ -6,6 +6,11 @@ plugin_group = cfg.OptGroup(
 )
 
 plugin_opts = [
+    cfg.BoolOpt(
+        "enabled",
+        default=False,
+        help="Enable the plugin?",
+    ),
     cfg.StrOpt(
         "geopy_geocoder",
         choices=[
