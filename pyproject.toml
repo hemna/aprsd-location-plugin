@@ -143,6 +143,9 @@ dev = [
 [project.entry-points."oslo.config.opts"]
     "aprsd_location_plugin.conf" = "aprsd_location_plugin.conf.opts:list_opts"
 
+[project.scripts]
+    "aprsd-location-plugin-export-config" = "aprsd_location_plugin.cli:main"
+
 [project.entry-points."aprsd.plugins"]
     "location" = "aprsd_location_plugin.aprsd_location_plugin:LocationPlugin"
 
