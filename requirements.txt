@@ -1,3 +1,0 @@
-aprsd>=3.4.4
-geopy
-oslo_config

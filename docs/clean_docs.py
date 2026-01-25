@@ -6,8 +6,8 @@ This is needed if the Python source being documented changes significantly. Old 
 RST files can be left behind.
 """
 
-from pathlib import Path
 import shutil
+from pathlib import Path
 
 
 def main() -> None:
@@ -16,6 +16,10 @@ def main() -> None:
         delete_dir = docs_dir / folder
         if delete_dir.exists():
             shutil.rmtree(delete_dir)
+    # Remove old readme.rst if it exists (we use readme.md now)
+    readme_rst = docs_dir / "readme.rst"
+    if readme_rst.exists():
+        readme_rst.unlink()
 
 
 if __name__ == "__main__":
